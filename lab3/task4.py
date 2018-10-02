@@ -1,5 +1,5 @@
 import numpy as np
-from math import log
+from math import log, factorial
 
 
 def nth_part_diff(f: callable, x0: list, argnum_arr: tuple):
@@ -54,7 +54,7 @@ def main(n):
     for i in range(n):  # all terms in Taylor's formula
         derivs = build_all_partions(i, 2)
         for d in derivs:
-            val = nth_part_diff(f, list(x0), tuple(d))
+            val = nth_part_diff(f, list(x0), tuple(d))/factorial(i)
             a = 1
             for i in range(len(x)):
                 a *= x[i] - x0[i]
