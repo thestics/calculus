@@ -63,10 +63,6 @@ def main(n):
     return res
 
 
-
-
-
-
-
 if __name__ == '__main__':
     print(main(3))
+    print(main(2))

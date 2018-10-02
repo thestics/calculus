@@ -31,7 +31,7 @@ def test_error(err):
                 return t
             deriv_t = [part_diff(f, t, i) for i in range(len(t))]   # all partial derivatives at point t as vector
             deriv_x = [part_diff(f, x, i) for i in range(len(x))]   # all partial derivatives at point x as vector
-            right_fact = sum([i**2 for i in (np.array(x) - np.array(x0))])*(1/2)    # right factor of formula
+            right_fact = sum([i**2 for i in (np.array(x) - np.array(x0))])**(1/2)    # right factor of formula
             val = (np.matrix(deriv_t) * np.matrix(deriv_x).transpose()) * right_fact # total value
             if val >= maximum:
                 maximum = val
