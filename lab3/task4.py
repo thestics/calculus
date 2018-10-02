@@ -64,5 +64,8 @@ def main(n):
 
 
 if __name__ == '__main__':
+# <<<<<<< HEAD
     print(main(3))
+# =======
+# >>>>>>> cb3960160f81bcb5f927e48e644c427053d23e05
     print(main(2))
