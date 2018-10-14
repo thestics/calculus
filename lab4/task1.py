@@ -56,7 +56,7 @@ def part_diff(f, x0, argnum):
     return upper/lower
 
 
-def task1(err, mode, f, x0: list):
+def minimize(err, mode, f, x0: list):
     """
     Minimize function
 
@@ -70,12 +70,13 @@ def task1(err, mode, f, x0: list):
     gamma = 1
     n = 0
     while True:
+        # print(x0)
         n += 1
-        if n > 10**5:
-            return None
+        if n > 50:
+            return list(x0)
         deriv = np.array([part_diff(f, x0, i) for i in range(len(x0))])
-        x1 = x0 - gamma*deriv
-        if f(*x1) > f(*x0):
+        x1 = np.array(x0) - gamma*deriv
+        if f(*x1) >= f(*x0):
             gamma /= 2
             continue
         if gamma < err:
@@ -142,6 +143,6 @@ if __name__ == '__main__':
     f4 = lambda x, y, z: (x**2 + y**2 + z**2)**2 + ((x-2)**2 + (y - 2)**2 + (z - 2)**2)**2
     x4 = ([3,3,3], [-1,-2,-3], [1,1,1])
     #
-    print(task1(0.00000000001, 1, f1, x1))
+    print(minimize(0.00000000001, 1, f1, x1))
     # print(build_all_partions(2, 4))
     # print(build_deriv_matrix(3))
