@@ -22,7 +22,7 @@ def get_pos(points, mes):
     :return: minimum of the error function (certain position)
     """
     f = _build_err_func(points, mes)
-    x0 = [points[0][0] + mes[0][0], points[0][1] + mes[0][1]]     # first point in list of measured (probably closest, not first will be better)
+    x0 = [points[0][0] + mes[0][0], points[0][1] + mes[0][1]]     # first point in list of measured (probably closest, not first, will be better)
     minimum = minimize(10e-8, 1, f, x0)
     # minimum = task1newton(10e-2, f, x0)
     return minimum
