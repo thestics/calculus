@@ -9,7 +9,8 @@ def _build_err_func(points, mes):
                 right/left to reach a certain anchor point
     :return: function of errors
     """
-    f = lambda x, y: sum([(x - p[0] + dx[0])**2 + (y - p[1] + dx[1])**2 for p in points for dx in mes])
+    f = lambda x, y: sum([(x - points[i][0] + mes[i][0])**2 + (y - points[i][1] + mes[i][1])**2 for i in range(len(points))])
+    # f = lambda x, y: sum([(x - p[0] + dx[0])**2 + (y - p[1] + dx[1])**2 for p in points for dx in mes])
     return f
 
 
