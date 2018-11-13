@@ -120,6 +120,7 @@ def test2_monte_carlo(n):
 # 4.61
 # 4.6401
 
+
 def integrate_naive(n):
     f1 = lambda x, y: np.sin(np.exp(x - y))
     f2 = lambda x, y: x**4 + y**4 <= 1
@@ -133,7 +134,7 @@ def integrate_naive(n):
                 inner_pts.append(mid)
     total = 0
     for p in inner_pts:
-        total += f1(*p) * (1 << n) ** 2
+        total += f1(*p) * (1 / (1 << n)) ** 2
     return total
 
 
@@ -172,5 +173,5 @@ def task3_2(m, n):
 
 
 if __name__ == '__main__':
-    print(integrate_naive(2))
+    print(integrate_naive(4))
     print(integrate_monte_carlo(100))
