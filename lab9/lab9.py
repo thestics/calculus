@@ -123,7 +123,7 @@ def mass(n):
 def _int1_1(n, mass):
     pts = []
     area = lambda r, phi, psi: r ** 2 * (cos(phi) ** 4 + sin(phi) ** 4 + cos(psi) ** 4 + sin(psi) ** 4)
-    density = lambda r, phi, psi: r * (phi ** 2 + psi ** 2)
+    density = lambda r, phi, psi: (r**2*cos(psi)) * (r*cos(psi)*cos(phi)) * (phi ** 2 + psi ** 2)   # Jacobean + x1 in spherical + density func
     amt = (1 << n) - 1
     delta = 1 / (1 << n + 1)
     side = 1 / (1 << n)
@@ -140,7 +140,7 @@ def _int1_1(n, mass):
 def _int2_1(n, mass):
     pts = []
     area = lambda r, phi, psi: r ** 2 * (cos(phi) ** 4 + sin(phi) ** 4 + cos(psi) ** 4 + sin(psi) ** 4)
-    density = lambda r, phi, psi: phi * (phi ** 2 + psi ** 2)
+    density = lambda r, phi, psi: (r**2*cos(psi)) * (r*cos(psi)*sin(phi)) * (phi ** 2 + psi ** 2)        # Jacobean + x2 in spherical + density func
     amt = (1 << n) - 1
     delta = 1 / (1 << n + 1)
     side = 1 / (1 << n)
@@ -157,7 +157,7 @@ def _int2_1(n, mass):
 def _int3_1(n, mass):
     pts = []
     area = lambda r, phi, psi: r ** 2 * (cos(phi) ** 4 + sin(phi) ** 4 + cos(psi) ** 4 + sin(psi) ** 4)
-    density = lambda r, phi, psi: psi*(phi ** 2 + psi ** 2)
+    density = lambda r, phi, psi: (r**2*cos(psi))*(r*sin(psi))*(phi ** 2 + psi ** 2)
     amt = (1 << n) - 1
     delta = 1 / (1 << n + 1)
     side = 1 / (1 << n)
@@ -173,11 +173,11 @@ def _int3_1(n, mass):
 
 def task4(n):
     m = mass(n)
-    r = _int1_1(n, m)
-    phi = _int2_1(n, m)
-    psi = _int3_1(n, m)
-    return r, phi, psi
-# (0.2499999999999929, 4.650898732716537, -1.1129029808453548e-16)
+    x1 = _int1_1(n, m)
+    x2 = _int2_1(n, m)
+    x3 = _int3_1(n, m)
+    return x1, x2, x3
+# (0.002533047339425227, -0.006822791107117372, 4.591197140739783e-19)
 
 
 
