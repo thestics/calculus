@@ -2,7 +2,6 @@ import numpy as np
 from random import random
 
 
-
 def recursive_iter(n, iterable):
     """
     Plays role of n-times 'for' on 'iterable' items
@@ -74,9 +73,7 @@ def test1_monte_carlo(n):
 
 
 def test2_naive(n):
-    f = lambda x, y, z: x ** 2 + y ** 2 <= 1 and z == 0 or\
-                        x ** 2 + y ** 2 <= 1 and x + y - z <= 0 or \
-                        x ** 2 + y ** 2 <= 1 and 2 * y + 2 * z >= 0
+    f = lambda x, y, z: x ** 2 + y ** 2 <= 1 and x + y <= z <= 2*y + 3*x
     a = (-1, 1)
     b = (-1, 1)
     c = (-1.5, 1)   # between -2*0.5 and 1
@@ -107,9 +104,7 @@ def test2_naive(n):
 
 
 def test2_monte_carlo(n):
-    f = lambda x, y, z: x ** 2 + y ** 2 <= 1 and z == 0 or \
-                        x ** 2 + y ** 2 <= 1 and x + y - z <= 0 or \
-                        x ** 2 + y ** 2 <= 1 and 2 * y + 2 * z >= 0
+    f = lambda x, y, z: x ** 2 + y ** 2 <= 1 and x + y <= z <= 2 * y + 3 * x
     pts = [(random() * 2 - 1, random() * 2 - 1, random() * 2.5 - 1.5) for i in range(n)]
     inner_pts = [p for p in pts if f(*p)]
     big_area = 10
@@ -172,6 +167,28 @@ def task3_2(m, n):
     return measure
 
 
+def main():
+    data = []
+    data.append(f'test 1 naive:\n n = 4:{test1_naive(4)}\n n = 6:{test1_naive(6)}\n n = 8:{test1_naive(8)}\n')
+    data.append(f'test 1 monte-carlo\n: n = 100: {test1_monte_carlo(100)} n = 1000: {test1_monte_carlo(1000)} n = 10000: {test1_monte_carlo(10000)}\n')
+    print('test 1 passed')
+    data.append(f'test 2 naive:\n n = 4:{test2_naive(4)}\n n = 5:{test2_naive(5)}\n n = 8: To much time taken\n')
+    data.append(f'test 2 monte-carlo:\n n = 100: {test2_monte_carlo(100)}\n n = 1000: {test2_monte_carlo(1000)}\n n = 10000: {test1_monte_carlo(10000)}\n')
+    print('test 2 passed')
+    data.append(f'integral vol.1:\n n = 4: {integrate_naive(4)}\n n = 6: {integrate_naive(6)}\n n = 8: {integrate_naive(8)}\n')
+    data.append(f'integral vol.2:\n n = 100: {integrate_monte_carlo(100)}\n n = 1000: {integrate_monte_carlo(1000)}\n n = 10000: {integrate_monte_carlo(10000)}\n')
+    print('integrals passed')
+    data.append(f'test 3 monte-carlo:\n')
+    s = [f'm = {i}:' + str(task3_1(i, 10000)) + '\n' for i in range(1, 7)]
+    print('sphere 1 calculated')
+    data.append(''.join(s) + '\n')
+    data.append(f'test 3 naive:\n')
+    s = [f'm = {i}:' + str(task3_2(i, 4)) + '\n' for i in range(1, 5)]
+    print('sphere 2 calculated')
+    data.append(''.join(s) + '\n')
+    to_write = ' '.join(data)
+    with open('output.txt', 'w') as f:
+        f.write(to_write)
+
 if __name__ == '__main__':
-    print(integrate_naive(4))
-    print(integrate_monte_carlo(100))
+    main()
